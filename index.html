@@ -81,6 +81,7 @@
       const addCol = (ev) => {
         const colArr = [...data[0]];
         data.push(colArr);
+        console.log(data);
         html = generateHTML(data);
         render();
       };
