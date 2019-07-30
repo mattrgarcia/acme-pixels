@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <style>
+      .canvas {
+        display: flex;
+      }
+      .cell {
+        height: 3rem;
+        width: 3rem;
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Acme Pixels</h1>
+    <div class="controls">
+      <h2>Controls</h2>
+      <button>Add A Row</button>
+      <button>Remove Row</button>
+      <button>Add A Column</button>
+      <button>Remove Column</button>
+    </div>
+    <div>
+      <h2>Canvas</h2>
+      <div class="canvas">
+
+      </div>
+    </div>
+    <script>
+      const generateNxN = (n)=>{
+        const rows = [];
+        for(let i=0; i<n; i++){
+          const row = [];
+          rows.push(row);
+          for(let j=0; j<n; j++){
+            row.push(0);
+          }
+        }
+        return rows;
+      };
+
+      const generateHTML = (rows)=> {
+        return rows.map(row =>
+        `<div class='row'>${ row.map(cell=> `<div class="cell"> ${ cell }</div>`).join('')}</div>`
+        ).join('');
+      };
+     const data = generateNxN(5);
+     const html = generateHTML(data);
+
+     const canvas = document.querySelector('.canvas');
+
+     canvas.innerHTML= html;
+
+     const render = ()=> {
+      const canvas = document.querySelector('.canvas');
+      canvas.innerHTML= html;
+     }
+
+     render();
+    </script>
+  </body>
+</html>
