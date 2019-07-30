@@ -4,7 +4,25 @@
       .canvas {
         display: flex;
       }
-      .cell {
+      #cell {
+        height: 3rem;
+        width: 3rem;
+        border: 1px solid black;
+      }
+      .red {
+        background-color: red;
+        height: 3rem;
+        width: 3rem;
+        border: 1px solid black;
+      }
+      .blue {
+        background-color: blue;
+        height: 3rem;
+        width: 3rem;
+        border: 1px solid black;
+      }
+      .green {
+        background-color: green;
         height: 3rem;
         width: 3rem;
         border: 1px solid black;
@@ -27,6 +45,10 @@
       </div>
     </div>
     <script>
+      const canvas = document.querySelector('.canvas');
+      const colors = ['red', 'blue', 'green'];
+
+
       const generateNxN = (n)=>{
         const rows = [];
         for(let i=0; i<n; i++){
@@ -41,15 +63,24 @@
 
       const generateHTML = (rows)=> {
         return rows.map(row =>
-        `<div class='row'>${ row.map(cell=> `<div class="cell"> ${ cell }</div>`).join('')}</div>`
+        `<div class='row'>${ row.map(cell=> `<div id="cell"> ${ cell }</div>`).join('')}</div>`
         ).join('');
       };
      const data = generateNxN(5);
      const html = generateHTML(data);
 
-     const canvas = document.querySelector('.canvas');
+     canvas.addEventListener('click', (ev)=>{
+        const cell = ev.target;
+        const row = ev.target.parentNode;
+        const ridx = [...row.children].indexOf(cell);
+        const cidx = [...row.parentNode.children].indexOf(row)
 
-     canvas.innerHTML= html;
+          if(ev.target.className !== ""){
+            ev.target.className = ""
+          }else {
+            ev.target.className = "red"
+          }
+     });
 
      const render = ()=> {
       const canvas = document.querySelector('.canvas');
