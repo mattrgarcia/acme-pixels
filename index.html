@@ -53,7 +53,7 @@
       const canvas = document.querySelector('.canvas');
       const colors = ['red', 'blue', 'green'];
       const colorSwitcher = document.querySelector('#colorSwitch');
-
+      let color = '';
 
       const generateNxN = (n)=>{
         const rows = [];
@@ -74,24 +74,29 @@
       };
 
       const chooseColor = (colors) => {
-        console.log(colors);
         return colors.map(color => `<div class="${color}"></div>`).join('');
+      };
+
+      const colorSquare = (ev) => {
+        const cell = ev.target;
+        const row = ev.target.parentNode;
+        const ridx = [...row.children].indexOf(cell);
+        const cidx = [...row.parentNode.children].indexOf(row);
+
+        if(ev.target.className !== ""){
+          ev.target.className = ""
+        } else {
+          ev.target.className = `${color}`;
+        }
       };
 
      const data = generateNxN(5);
      const html = generateHTML(data);
 
-     canvas.addEventListener('click', (ev)=>{
-        const cell = ev.target;
-        const row = ev.target.parentNode;
-        const ridx = [...row.children].indexOf(cell);
-        const cidx = [...row.parentNode.children].indexOf(row)
+     canvas.addEventListener('click', colorSquare);
 
-        if(ev.target.className !== ""){
-          ev.target.className = ""
-        }else {
-          ev.target.className = `red`;
-        }
+     colorSwitcher.addEventListener('click', (ev) => {
+       color = ev.target.className;
      });
 
      const render = ()=> {
