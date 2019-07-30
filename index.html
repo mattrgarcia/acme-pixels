@@ -9,6 +9,9 @@
         width: 3rem;
         border: 1px solid black;
       }
+      #colorSwitch {
+        display: flex;
+      }
       .red {
         background-color: red;
         height: 3rem;
@@ -38,6 +41,8 @@
       <button>Add A Column</button>
       <button>Remove Column</button>
     </div>
+    <div id="colorSwitch">
+    </div>
     <div>
       <h2>Canvas</h2>
       <div class="canvas">
@@ -47,6 +52,7 @@
     <script>
       const canvas = document.querySelector('.canvas');
       const colors = ['red', 'blue', 'green'];
+      const colorSwitcher = document.querySelector('#colorSwitch');
 
 
       const generateNxN = (n)=>{
@@ -66,6 +72,12 @@
         `<div class='row'>${ row.map(cell=> `<div id="cell"> ${ cell }</div>`).join('')}</div>`
         ).join('');
       };
+
+      const chooseColor = (colors) => {
+        console.log(colors);
+        return colors.map(color => `<div class="${color}"></div>`).join('');
+      };
+
      const data = generateNxN(5);
      const html = generateHTML(data);
 
@@ -75,16 +87,17 @@
         const ridx = [...row.children].indexOf(cell);
         const cidx = [...row.parentNode.children].indexOf(row)
 
-          if(ev.target.className !== ""){
-            ev.target.className = ""
-          }else {
-            ev.target.className = "red"
-          }
+        if(ev.target.className !== ""){
+          ev.target.className = ""
+        }else {
+          ev.target.className = `red`;
+        }
      });
 
      const render = ()=> {
       const canvas = document.querySelector('.canvas');
       canvas.innerHTML= html;
+      colorSwitcher.innerHTML = chooseColor(colors);
      }
 
      render();
